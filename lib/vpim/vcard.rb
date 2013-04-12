@@ -670,19 +670,19 @@ module Vpim
       end
 
       case string
-        when /^\xEF\xBB\xBF/
+        when Regexp.new('^\xEF\xBB\xBF')
           string = string.sub("\xEF\xBB\xBF", '')
-        when /^\xFE\xFF/
+        when Regexp.new('^\xFE\xFF')
           arr = string.unpack('n*')
           arr.shift
           string = arr.pack('U*')
-        when /^\xFF\xFE/
+        when Regexp.new('^\xFF\xFE')
           arr = string.unpack('v*')
           arr.shift
           string = arr.pack('U*')
-        when /^\x00B/i
+        when Regexp.new('^\x00B', 'i')
           string = string.unpack('n*').pack('U*')
-        when /^B\x00/i
+        when Regexp.new('^B\x00', 'i')
           string = string.unpack('v*').pack('U*')
       end
 
